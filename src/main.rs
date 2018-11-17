@@ -6,9 +6,26 @@ fn main() {
     .version("0.1")
     .about("bleg")
     .author("Andrew Hu inspired by Britt \"Bleg\" Henderson")
-    .arg(Arg::with_name("#")
-      .index(1))
+    .arg(Arg::from_usage(
+      "[#]"))
+    .arg(Arg::with_name("ASCII")
+      .long("ascii")
+      .short("a"))
     .get_matches();
+
+  let output = 
+    if matches.is_present("ASCII") {
+" ____  _           
+|  _ \\| |           
+| |_) | | ___  __ _ 
+|  _ <| |/ _ \\/ _` |
+| |_) | |  __/ (_| |
+|____/|_|\\___|\\__, |
+               __/ |
+              |___/ "
+    } else {
+      "bleg"
+    };
 
   if let Some(num_str) = matches.value_of("#") {
     let num = match num_str.parse::<i32>() {
@@ -19,9 +36,9 @@ fn main() {
       }
     };
     for _ in 0..num {
-      println!("bleg");
+      println!("{}", output);
     }
   } else {
-    println!("bleg");
+    println!("{}", output);
   }
 }
